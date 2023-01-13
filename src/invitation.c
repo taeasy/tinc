@@ -418,7 +418,7 @@ int cmd_invite(int argc, char *argv[]) {
 		}
 
 		if(!stat(invname, &st)) {
-			if(deadline < st.st_mtime) {
+			if(deadline < (long long)st.st_mtime) {
 				count++;
 			} else {
 				unlink(invname);
