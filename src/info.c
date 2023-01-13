@@ -72,12 +72,12 @@ static int info_node(int fd, const char *item) {
 		uint32_t raw;
 	} status_union;
 	node_status_t status;
-	long int last_state_change;
+	long long last_state_change;
 	int udp_ping_rtt;
 	uint64_t in_packets, in_bytes, out_packets, out_bytes;
 
 	while(recvline(fd, line, sizeof(line))) {
-		int n = sscanf(line, "%d %d %4095s %4095s %4095s port %4095s %d %d %d %d %x %"PRIx32" %4095s %4095s %d %hd %hd %hd %ld %d %"PRIu64" %"PRIu64" %"PRIu64" %"PRIu64, &code, &req, node, id, host, port, &cipher, &digest, &maclength, &compression, &options, &status_union.raw, nexthop, via, &distance, &pmtu, &minmtu, &maxmtu, &last_state_change, &udp_ping_rtt, &in_packets, &in_bytes, &out_packets, &out_bytes);
+		int n = sscanf(line, "%d %d %4095s %4095s %4095s port %4095s %d %d %d %d %x %"PRIx32" %4095s %4095s %d %hd %hd %hd %lld %d %"PRIu64" %"PRIu64" %"PRIu64" %"PRIu64, &code, &req, node, id, host, port, &cipher, &digest, &maclength, &compression, &options, &status_union.raw, nexthop, via, &distance, &pmtu, &minmtu, &maxmtu, &last_state_change, &udp_ping_rtt, &in_packets, &in_bytes, &out_packets, &out_bytes);
 
 		if(n == 2) {
 			break;
